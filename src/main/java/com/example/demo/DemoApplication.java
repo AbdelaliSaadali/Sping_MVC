@@ -26,6 +26,15 @@ public class DemoApplication {
 			productRepository.save(new Product(null, "Computer", 3500, 10));
 			productRepository.save(new Product(null, "Printer", 1200, 5));
 			productRepository.save(new Product(null, "SmartPhone", 2500, 8));
+			productRepository.save(new Product(null, "Tablet", 1800, 12));
+			productRepository.save(new Product(null, "Monitor", 2200, 7));
+			productRepository.save(new Product(null, "Keyboard", 150, 30));
+			productRepository.save(new Product(null, "Mouse", 80, 50));
+			productRepository.save(new Product(null, "Headset", 350, 20));
+			productRepository.save(new Product(null, "Webcam", 450, 15));
+			productRepository.save(new Product(null, "Speaker", 600, 10));
+			productRepository.save(new Product(null, "Hard Drive", 900, 25));
+			productRepository.save(new Product(null, "Router", 700, 18));
 			productRepository.findAll().forEach(p -> System.out.println(p.toString()));
 
 			// Seed roles
