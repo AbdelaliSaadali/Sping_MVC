@@ -57,14 +57,14 @@ public class DemoApplication {
 			// Seed patients
 			Patient p1 = patientRepository.save(new Patient(null, "Hassan", new Date(), true));
 			Patient p2 = patientRepository.save(new Patient(null, "Mohamed", new Date(), false));
-			Patient p3 = patientRepository.save(new Patient(null, "Fatima", new Date(), true));
+			patientRepository.save(new Patient(null, "Fatima", new Date(), true));
 
 			// Seed medecins
 			Medecin m1 = medecinRepository.save(new Medecin(null, "Dr. Alami", "alami@med.com", "Cardiology"));
 			Medecin m2 = medecinRepository.save(new Medecin(null, "Dr. Bennani", "bennani@med.com", "Dermatology"));
 
 			// Seed rendez-vous
-			RendezVous rv1 = rendezVousRepository.save(new RendezVous(null, new Date(), StatusRendezVous.PENDING, p1, m1));
+			rendezVousRepository.save(new RendezVous(null, new Date(), StatusRendezVous.PENDING, p1, m1));
 			RendezVous rv2 = rendezVousRepository.save(new RendezVous(null, new Date(), StatusRendezVous.DONE, p2, m2));
 
 			// Seed consultations
