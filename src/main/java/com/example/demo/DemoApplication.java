@@ -1,9 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.entities.AppRole;
-import com.example.demo.entities.AppUser;
-import com.example.demo.entities.Product;
-import com.example.demo.repositories.ProductRepository;
+import com.example.demo.entities.*;
+import com.example.demo.repositories.*;
 import com.example.demo.services.AccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -20,7 +19,12 @@ public class DemoApplication {
 	}
 
 	@Bean
-	CommandLineRunner start(ProductRepository productRepository, AccountService accountService) {
+	CommandLineRunner start(ProductRepository productRepository,
+							AccountService accountService,
+							PatientRepository patientRepository,
+							MedecinRepository medecinRepository,
+							RendezVousRepository rendezVousRepository,
+							ConsultationRepository consultationRepository) {
 		return args -> {
 			// Seed products
 			productRepository.save(new Product(null, "Computer", 3500, 10));
@@ -49,6 +53,22 @@ public class DemoApplication {
 			accountService.addRoleToUser("user1", "ROLE_USER");
 			accountService.addRoleToUser("admin", "ROLE_ADMIN");
 			accountService.addRoleToUser("admin", "ROLE_USER");
+
+			// Seed patients
+			Patient p1 = patientRepository.save(new Patient(null, "Hassan", new Date(), true));
+			Patient p2 = patientRepository.save(new Patient(null, "Mohamed", new Date(), false));
+			Patient p3 = patientRepository.save(new Patient(null, "Fatima", new Date(), true));
+
+			// Seed medecins
+			Medecin m1 = medecinRepository.save(new Medecin(null, "Dr. Alami", "alami@med.com", "Cardiology"));
+			Medecin m2 = medecinRepository.save(new Medecin(null, "Dr. Bennani", "bennani@med.com", "Dermatology"));
+
+			// Seed rendez-vous
+			RendezVous rv1 = rendezVousRepository.save(new RendezVous(null, new Date(), StatusRendezVous.PENDING, p1, m1));
+			RendezVous rv2 = rendezVousRepository.save(new RendezVous(null, new Date(), StatusRendezVous.DONE, p2, m2));
+
+			// Seed consultations
+			consultationRepository.save(new Consultation(null, new Date(), "General checkup - all clear", rv2));
 		};
 	}
 }
